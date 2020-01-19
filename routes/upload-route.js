@@ -3,18 +3,13 @@ upload = require('../utils/upload-multer')
 Youtube = require("youtube-api"),
     fs = require("fs"),
     readJson = require("r-json"),
-    Lien = require("lien"),
     Logger = require("bug-killer"),
     opn = require("opn"),
     prettyBytes = require("pretty-bytes");
 path = require('path');
 
 const CREDENTIALS = readJson(path.join(`${__dirname}/../config/credentials.json`));
-// Init lien server
-let server = new Lien({
-    host: "localhost",
-    port: 5001
-});
+
 
 // Authenticate
 // You can access the Youtube resources via OAuth2 only.
