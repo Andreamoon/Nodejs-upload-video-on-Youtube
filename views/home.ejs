@@ -15,6 +15,21 @@
         <h1>Video Upload</h1>
         <%= typeof msg != 'undefined' ? msg : '' %>
             <form action="/upload" method="POST" enctype="multipart/form-data">
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input name="title" type="text" class="validate">
+                        <label for="disabled">Titolo</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input name="description" type="text" class="validate">
+                        <label for="disabled">Descrizione</label>
+                    </div>
+                </div>
+
+
                 <div class="file-field input-field">
                     <div class="btn grey">
                         <span>File</span>
@@ -27,7 +42,7 @@
                 <button type="submit" class="btn">Submit</button>
             </form>
             <br>
-            <img src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img">
+            <!-- <img src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img"> -->
     </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>

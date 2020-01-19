@@ -9,19 +9,17 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "body-parser": "^1.19.0",
         "bug-killer": "^4.4.4",
+        "connect-flash": "^0.1.1",
         "ejs": "^3.0.1",
         "express": "^4.17.1",
-        "googleapis": "^47.0.0",
+        "express-session": "^1.17.0",
         "lien": "^3.3.0",
         "multer": "^1.4.2",
         "opn": "^6.0.0",
-        "passport": "^0.4.1",
-        "passport-google-oauth20": "^2.0.0",
-        "passport-youtube-v3": "^2.1.0",
         "pretty-bytes": "^5.3.0",
         "r-json": "^1.2.9",
-        "youtube-api": "^2.0.10",
-        "youtube-video-api": "^0.3.7"
+        "youtube-api": "^2.0.10"
     }
 }
