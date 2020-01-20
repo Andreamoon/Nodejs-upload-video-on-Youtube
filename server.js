@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const router = require('./routes/upload-route')
+const uploadRoutes = require('./routes/upload-route')
 const authRoutes = require('./routes/authRoutes')
 var flash = require('connect-flash');
 var session = require('express-session');
@@ -18,7 +18,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
-app.use('/upload', router)
+app.use('/upload', uploadRoutes)
 app.use('/auth', authRoutes)
     //public folder
 app.use(express.static('./public'))

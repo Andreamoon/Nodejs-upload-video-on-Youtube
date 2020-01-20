@@ -8,41 +8,56 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
 
     <title>Node File Uploads</title>
+    <style>
+        .brand-logo {
+            width: 100px;
+        }
+    </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>Youtube Video Upload</h1>
-        <%= typeof msg != 'undefined' ? msg : '' %>
-            <form action="/upload" method="POST" enctype="multipart/form-data">
+        <div class="col-6">
 
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input name="title" type="text" class="validate">
-                        <label for="disabled">Titolo</label>
-                    </div>
+            <img src='assets/img/youtube-logo.png' alt="youtube-logo" class="brand-logo">
+        </div>
+        <div class="col-6">
+
+            <h1> Video Upload</h1>
+
+        </div>
+        <h4>
+            <%= typeof msg != 'undefined' ? msg : '' %>
+        </h4>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <input name="title" type="text" class="validate">
+                    <label for="disabled">Titolo</label>
                 </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input name="description" type="text" class="validate">
-                        <label for="disabled">Descrizione</label>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input name="description" type="text" class="validate">
+                    <label for="disabled">Descrizione</label>
                 </div>
+            </div>
 
 
-                <div class="file-field input-field">
-                    <div class="btn grey">
-                        <span>File</span>
-                        <input name="myVideo" type="file">
-                    </div>
-                    <div class="file-path-wrapper">
-                        <input class="file-path validate" type="text">
-                    </div>
+            <div class="file-field input-field">
+                <div class="btn grey">
+                    <span>File</span>
+                    <input name="myVideo" type="file">
                 </div>
-                <button type="submit" class="btn">Submit</button>
-            </form>
-            <br>
-            <!-- <img src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img"> -->
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                </div>
+            </div>
+            <button type="submit" class="btn">Submit</button>
+        </form>
+        <br>
+        <!-- <img src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img"> -->
     </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>

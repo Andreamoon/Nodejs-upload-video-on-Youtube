@@ -31,8 +31,7 @@ router.post('/', (req, res) => {
                 msg: err
             })
         } else {
-            // // console.log(req.file)
-            // res.send('test')
+
             if (req.file === undefined) {
                 res.render('home', {
                     msg: 'Errore seleziona un file mp4'
@@ -52,7 +51,7 @@ router.post('/', (req, res) => {
 
 
                 res.render('home', {
-                    msg: "Video uplaoded",
+                    msg: "Completa il processo di autenticazione con google per caricare il video",
                     file: `uploads/${req.file.filename}`
                 })
             }
