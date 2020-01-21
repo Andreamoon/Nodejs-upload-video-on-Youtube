@@ -13,73 +13,88 @@ let oauth = Youtube.authenticate({
     redirect_url: CREDENTIALS.web.redirect_uris[0]
 });
 
+
+
+async function wait(req, res, ms) {
+    return new Promise((resolve, reject) => {
+        setTimeout(resolve, ms)
+    });
+}
+
 router.get('/google/youtube', (req, res) => {
+    try {
+        let title = req.flash("title")
+        let description = req.flash('description')
 
-    let title = req.flash("title")
-    let description = req.flash('description')
-
-    Logger.log("Trying to get the token using the following code: " + req.query.code);
-    let newVideo = ""
-    fs.readdir(video, (err, files) => {
-
-        if (err) console.log(err)
-        files.forEach(file => {
-            newVideo = file
-        });
-
-        oauth.getToken(req.query.code, (err, tokens) => {
-
-            if (err) {
-                res.send(err, 400);
-                return Logger.log(err);
-            }
-            __dirname
-
-            Logger.log("Got the tokens.");
-
-            oauth.setCredentials(tokens);
+        Logger.log("Trying to get the token using the following code: " + req.query.code);
 
 
-            //lien.end("The video is being uploaded. Check out the logs in the terminal.");
+        fs.readdir(video, (err, files) => {
+            let newVideo = ""
 
-            var req = Youtube.videos.insert({
-                resource: {
-                    // Video title and description
-                    snippet: {
-                        title: title,
-                        description: description
-                    }
-                    // I don't want to spam my subscribers
-                    ,
-                    status: {
-                        privacyStatus: "private"
-                    }
-                }
-                // This is for the callback function
-                ,
-                part: "snippet,status"
-
-                // Create the readable stream to upload the video
-                ,
-                media: {
-                    body: fs.createReadStream(path.join(video, newVideo))
-                }
-            }, (err, data) => {
-                if (err) throw err
-                data.fileName = newVideo
-                console.log("Done.", data);
-
-                fs.unlinkSync(path.join(video, newVideo));
-                process.exit();
+            if (err) console.log(err)
+            files.forEach(file => {
+                newVideo = file
             });
 
-            setInterval(function() {
-                Logger.log(`${prettyBytes(req.req.connection._bytesDispatched)} bytes uploaded.`);
-            }, 250);
+            oauth.getToken(req.query.code, (err, tokens) => {
+
+                if (err) {
+                    res.send(err, 400);
+                    return Logger.log(err);
+                }
+                __dirname
+
+                Logger.log("Got the tokens.");
+
+                oauth.setCredentials(tokens);
+
+                var req = Youtube.videos.insert({
+                    resource: {
+                        // Video title and description
+                        snippet: {
+                            title: title,
+                            description: description
+                        }
+                        // I don't want to spam my subscribers
+                        ,
+                        status: {
+                            privacyStatus: "private"
+                        }
+                    },
+                    // This is for the callback function
+                    part: "snippet,status",
+                    // Create the readable stream to upload the video                  
+                    media: {
+                        body: fs.createReadStream(path.join(video, newVideo))
+                    }
+                }, (err, data) => {
+                    // if (err) throw err
+
+                    console.log(err)
+                    if (data) {
+                        data.fileName = newVideo;
+                        console.log("Done.", data);
+                    }
+                    fs.unlinkSync(path.join(video, newVideo));
+                    // process.exit();
+                });
+
+                // setInterval(function() {
+                //     Logger.log(`${prettyBytes(req.req.connection._bytesDispatched)} bytes uploaded.`);
+                // }, 250);
+            });
+
         });
 
-    });
-    res.render('home')
+    } catch (error) {
+        console.error("Oh no! There was an error!\nSee message below:");
+        console.error(error);
+
+        console.log('errore:  ', error)
+    }
+
+    res.redirect('/')
 
 })
 

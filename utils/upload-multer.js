@@ -4,16 +4,13 @@ const path = require('path')
 
 //Set store engine
 const storage = multer.diskStorage({
-    destination: './public/videos',
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+        destination: './public/videos',
+        filename: (req, file, cb) => {
+            cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
 
-    }
-})
-
-
-
-//Init Upload
+        }
+    })
+    //Init Upload
 
 const upload = multer({
     storage,

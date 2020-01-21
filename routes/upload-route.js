@@ -21,8 +21,11 @@ let oauth = Youtube.authenticate({
     redirect_url: CREDENTIALS.web.redirect_uris[0]
 });
 
-router.post('/', (req, res) => {
 
+
+
+
+router.post('/', (req, res) => {
 
     upload(req, res, (err) => {
         if (err) {
@@ -37,23 +40,19 @@ router.post('/', (req, res) => {
                     msg: 'Errore seleziona un file mp4'
                 })
             } else {
-
-                opn(oauth.generateAuthUrl({
+                let youtubeUrlAuth = oauth.generateAuthUrl({
                     access_type: "offline",
                     scope: ["https://www.googleapis.com/auth/youtube.upload"]
-                }))
+                });
                 const {
                     title,
                     description
-                } = req.body
-                req.flash('title', title)
-                req.flash('description', description)
+                } = req.body;
+                req.flash('title', title);
+                req.flash('description', description);
 
 
-                res.render('home', {
-                    msg: "Completa il processo di autenticazione con google per caricare il video",
-                    file: `uploads/${req.file.filename}`
-                })
+                res.redirect(youtubeUrlAuth);
             }
         }
     })
